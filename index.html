@@ -3,390 +3,913 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REM - Relocation Education Manpower | Globalna Platforma Relokacyjna</title>
+    <title>REM Platform — Relocation Education Manpower | Global Infrastructure</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Tailwind Configuration & Advanced CSS Styles -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        },
+                        accent: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            violet: '#8b5cf6',
+                            amber: '#f59e0b'
+                        },
+                        dark: {
+                            base: '#030712',
+                            card: '#0b0f19',
+                            border: '#1f293d',
+                            glass: 'rgba(15, 23, 42, 0.65)'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.4))' },
+                            '100%': { opacity: '0.8', filter: 'drop-shadow(0 0 30px rgba(6, 182, 212, 0.8))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        /* Modern Premium Glassmorphism & Custom Styling */
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.15);
+        }
+
+        .glass-nav {
+            background: rgba(3, 7, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #93c5fd 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-accent-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased flex flex-col min-h-screen">
+<body class="font-sans antialiased text-slate-200 selection:bg-brand-500 selection:text-white">
 
-    <!-- NAV BAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-blue-500/30">
-                    REM
-                </div>
-                <div>
-                    <span class="text-lg font-bold tracking-tight text-white block leading-none">REM</span>
-                    <span class="text-xs text-slate-400 font-medium">Relocation Education Manpower</span>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="#o-projekcie" class="hover:text-blue-400 transition-colors">O projekcie</a>
-                <a href="#model-biznesowy" class="hover:text-blue-400 transition-colors">Model biznesowy</a>
-                <a href="#inwestor" class="hover:text-blue-400 transition-colors">Dla Inwestora</a>
-                <a href="#zabezpieczenia" class="hover:text-blue-400 transition-colors">Zabezpieczenia</a>
-                <a href="#technologia" class="hover:text-blue-400 transition-colors">Technologia & AI</a>
-            </div>
+    <!-- HERO BACKGROUND GLOW & PATTERN -->
+    <div class="hero-glow"></div>
+    <div class="fixed inset-0 grid-pattern opacity-20 pointer-events-none z-0"></div>
 
-            <div>
-                <a href="#kontakt" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-lg shadow-blue-600/20 transition-all flex items-center gap-2">
-                    <i data-lucide="handshake" class="w-4 h-4"></i> Partnerstwo
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-10">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="relative w-11 h-11 bg-gradient-to-tr from-brand-600 via-brand-500 to-accent-cyan rounded-xl p-0.5 shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/40 transition-all duration-300">
+                    <div class="w-full h-full bg-dark-base rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="eye" class="w-6 h-6 text-brand-400 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-xl tracking-wider text-white leading-none">REM</span>
+                    <span class="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mt-1">Relocation Education Manpower</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                <a href="#o-projekcie" class="hover:text-brand-400 transition-colors py-2">O Projekcie</a>
+                <a href="#model-operacyjny" class="hover:text-brand-400 transition-colors py-2">Model Operacyjny</a>
+                <a href="#finanse" class="hover:text-brand-400 transition-colors py-2">Finansowanie</a>
+                <a href="#zabezpieczenia" class="hover:text-brand-400 transition-colors py-2">Zabezpieczenia</a>
+                <a href="#technologia" class="hover:text-brand-400 transition-colors py-2">Technologia & AI</a>
+                <a href="#kalkulator" class="hover:text-brand-400 transition-colors py-2">Kalkulator</a>
+            </nav>
+
+            <!-- CTA Action Button -->
+            <div class="hidden sm:flex items-center gap-4">
+                <a href="#kontakt" class="relative group inline-flex items-center justify-center p-0.5 overflow-hidden rounded-xl font-medium text-xs tracking-wider uppercase">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-brand-500 via-accent-cyan to-accent-violet group-hover:from-brand-600 group-hover:to-accent-emerald transition-all duration-300"></span>
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-dark-base rounded-[10px] group-hover:bg-opacity-0 text-white font-bold flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-brand-400 group-hover:text-white transition-colors"></i>
+                        <span>Inwestuj z REM</span>
+                    </span>
                 </a>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="lg:hidden p-2 text-slate-400 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
-    </nav>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden glass-card border-b border-slate-800 px-6 py-6 space-y-4">
+            <a href="#o-projekcie" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">O Projekcie</a>
+            <a href="#model-operacyjny" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">Model Operacyjny</a>
+            <a href="#finanse" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">Finansowanie</a>
+            <a href="#zabezpieczenia" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">Zabezpieczenia</a>
+            <a href="#technologia" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">Technologia & AI</a>
+            <a href="#kalkulator" class="block text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-brand-400">Kalkulator</a>
+            <div class="pt-4 border-t border-slate-800">
+                <a href="#kontakt" class="w-full bg-brand-600 text-white text-center py-3 rounded-xl font-bold text-xs uppercase tracking-wider block">Inwestuj z REM</a>
+            </div>
+        </div>
+    </header>
 
     <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-                        <i data-lucide="globe" class="w-4 h-4"></i> Global Migration Platform
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Kompleksowy cykl relokacji i edukacji pracowniczej
-                    </h1>
-                    <p class="text-lg text-slate-300 leading-relaxed">
-                        REM połączył proces rekrutacyjny, szkoleniowy, wizowy i logistyczny w jeden spójny, bezpieczny model operacyjno-finansowy. Pełna obsługa od rekrutacji po adaptację na rynku docelowym.
-                    </p>
-                    <div class="pt-2 flex flex-wrap gap-4">
-                        <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex-1 min-w-[200px]">
-                            <div class="text-2xl font-bold text-blue-400">1 500</div>
-                            <div class="text-xs text-slate-400 mt-1">Potwierdzonych zleceń relokacyjnych (Kuba → Polska)</div>
-                        </div>
-                        <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex-1 min-w-[200px]">
-                            <div class="text-2xl font-bold text-emerald-400">6 000 EUR</div>
-                            <div class="text-xs text-slate-400 mt-1">Kwota pożyczki relokacyjnej na uczestnika</div>
-                        </div>
-                    </div>
-                </div>
+    <section class="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Logo & Diagram Card -->
-                <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 backdrop-blur-sm shadow-2xl flex flex-col items-center justify-center text-center">
-                    <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl p-1 shadow-2xl mb-6">
-                        <div class="w-full h-full bg-slate-900 rounded-[22px] flex items-center justify-center p-4">
-                            <i data-lucide="eye" class="w-16 h-16 text-blue-400"></i>
+                <!-- Left Column: Copywriting -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card text-brand-300 text-xs font-semibold tracking-wider uppercase border border-brand-500/20 shadow-inner">
+                        <span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
+                        <span>Globalna Infrastruktura Relokacyjna & FinTech</span>
+                    </div>
+
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                        Cyfrowa Platforma <br>
+                        <span class="gradient-text">Migracji Zarobkowej</span> i Edukacji
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+                        REM (Relocation Education Manpower) integruje pełen cykl rekrutacyjny, wizowy, szkoleniowy i logistyczny w jeden bezpieczny, skalowalny model operacyjno-finansowy. Łączymy międzynarodowy rynek pracy z instytucjonalnym finansowaniem.
+                    </p>
+
+                    <!-- Key Highlighting Counters -->
+                    <div class="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-500">
+                            <div class="text-2xl sm:text-3xl font-heading font-extrabold text-white">1 500</div>
+                            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Potwierdzonych Zleceń (Kuba → PL)[cite: 12]</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-l-accent-emerald">
+                            <div class="text-2xl sm:text-3xl font-heading font-extrabold text-accent-emerald">6 000 €</div>
+                            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Pożyczka Celowa na Uczestnika[cite: 12]</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-l-accent-cyan col-span-2 sm:col-span-1">
+                            <div class="text-2xl sm:text-3xl font-heading font-extrabold text-accent-cyan">100%</div>
+                            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Weryfikacja Wizowa Przed Wypłatą[cite: 12]</div>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">REM Platform</h3>
-                    <p class="text-sm text-slate-400 mb-6 max-w-sm">
-                        Relocation • Education • Manpower – Niezależna, technologicznie skalowalna infrastruktura migracyjna.
-                    </p>
-                    <div class="w-full grid grid-cols-3 gap-2 border-t border-slate-700/60 pt-6 text-xs text-slate-300 font-medium">
-                        <div class="flex flex-col items-center gap-1">
-                            <i data-lucide="graduation-cap" class="text-blue-400 w-5 h-5"></i>
-                            <span>Szkolenia & Język</span>
+
+                    <!-- Call To Action Group -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#kontakt" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-bold text-xs uppercase tracking-widest rounded-xl shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center gap-3 group">
+                            <span>Prezentacja dla Inwestorów</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#zabezpieczenia" class="w-full sm:w-auto px-8 py-4 glass-card hover:bg-slate-800/60 text-slate-200 font-bold text-xs uppercase tracking-widest rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="shield" class="w-4 h-4 text-brand-400"></i>
+                            <span>Struktura Zabezpieczeń</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visual Infographic / Interactive Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-accent-cyan rounded-3xl blur-2xl opacity-20 animate-pulse-slow"></div>
+                    
+                    <div class="relative glass-card rounded-3xl p-8 space-y-6 border border-slate-700/80 shadow-2xl">
+                        <!-- Header inside card -->
+                        <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 rounded-full bg-accent-emerald animate-ping"></div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Ekosystem REM w Czasie Rzeczywistym</span>
+                            </div>
+                            <span class="px-2.5 py-1 bg-brand-500/10 text-brand-400 text-[10px] font-bold rounded-full uppercase border border-brand-500/20">v3.4 Platform</span>
                         </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <i data-lucide="file-check" class="text-blue-400 w-5 h-5"></i>
-                            <span>Wizy & Notariat</span>
+
+                        <!-- Interactive Nodes Display -->
+                        <div class="space-y-4">
+                            <!-- Node 1 -->
+                            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between group hover:border-brand-500/40 transition-all">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                                        <i data-lucide="globe-2" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Kraje Źródłowe</h4>
+                                        <p class="text-[11px] text-slate-400 mt-0.5">Kuba, Kenia, Filipiny, Brazylia, Hiszpania[cite: 12]</p>
+                                    </div>
+                                </div>
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-accent-emerald"></i>
+                            </div>
+
+                            <!-- Node 2 -->
+                            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between group hover:border-accent-cyan/40 transition-all">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center text-accent-cyan group-hover:bg-accent-cyan group-hover:text-black transition-all">
+                                        <i data-lucide="cpu" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Silnik AI & LLM</h4>
+                                        <p class="text-[11px] text-slate-400 mt-0.5">Weryfikacja OCR, Tłumaczenia PL-ES-EN[cite: 12]</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 bg-accent-cyan/20 text-accent-cyan rounded">Active</span>
+                            </div>
+
+                            <!-- Node 3 -->
+                            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between group hover:border-accent-violet/40 transition-all">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-lg bg-accent-violet/10 flex items-center justify-center text-accent-violet group-hover:bg-accent-violet group-hover:text-white transition-all">
+                                        <i data-lucide="lock" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Zabezpieczenie 5-Stopniowe</h4>
+                                        <p class="text-[11px] text-slate-400 mt-0.5">Żyranci + Notariat + Art. 777 KPC[cite: 12]</p>
+                                    </div>
+                                </div>
+                                <i data-lucide="shield-check" class="w-4 h-4 text-accent-emerald"></i>
+                            </div>
                         </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <i data-lucide="home" class="text-blue-400 w-5 h-5"></i>
-                            <span>Adaptacja & Opieka</span>
+
+                        <!-- Footer inside Card -->
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                            <span>Status Portfela: <strong>Zabezpieczony</strong>[cite: 12]</span>
+                            <span class="text-accent-emerald font-bold">100% Celowość</span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- O PROJEKCIE & GENEZA -->
-    <section id="o-projekcie" class="py-20 bg-slate-900">
+    <!-- SECTION 1: O PROJEKCIE I GENEZA -->
+    <section id="o-projekcie" class="py-24 relative z-10 border-t border-slate-800/80 bg-dark-base/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-white tracking-tight">O Projekcie i Geneza</h2>
-                <p class="text-slate-400 mt-4">
-                    Odpowiedź na długoterminowe i strukturalne braki kadrowe na rynku europejskim.
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-[11px] font-bold uppercase tracking-widest border border-brand-500/20">
+                    <i data-lucide="compass" class="w-3.5 h-3.5"></i> Rozwiązanie Strukturalne
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Geneza i Kompleksowa Wizja Projektu REM
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Projekt został zainicjowany przez zespół ekspertów z wieloletnim doświadczeniem w międzynarodowym pośrednictwie pracy, legalizacji pobytu oraz procedurach wizowych[cite: 12].
                 </p>
             </div>
 
+            <!-- Detailed Grid Columns -->
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-6 hover:border-slate-600 transition-all">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400 mb-4">
-                        <i data-lucide="layers" class="w-6 h-6"></i>
+                
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-8 space-y-5 relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="target" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Brak Fragmentaryczności</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Łączymy przygotowanie dokumentów, szkolenia językowe i zawodowe, ubezpieczenie, proces wizowy, logistykę oraz opiekuńczy pakiet startowy po przyjeździe.
+                    <h3 class="font-heading text-xl font-bold text-white">Eliminacja Fragmentaryczności</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Dotychczasowy rynek charakteryzuje się rozproszeniem usług między agencje, szkoły językowe i biura wizowe. REM integruje cały proces od rekrutacji po zakwaterowanie i opiekuna[cite: 12].
                     </p>
+                    <ul class="space-y-2 pt-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Przygotowanie pełnej dokumentacji[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Szkolenia językowe i zawodowe[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-400"></i> Pakiet adaptacyjny i wsparcie[cite: 12]</li>
+                    </ul>
                 </div>
 
-                <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-6 hover:border-slate-600 transition-all">
-                    <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-400 mb-4">
-                        <i data-lucide="users" class="w-6 h-6"></i>
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-8 space-y-5 relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-cyan/10 border border-accent-cyan/20 flex items-center justify-center text-accent-cyan group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Doświadczony Zespół</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Wieloletnia praktyka w międzynarodowym pośrednictwie pracy i legalizacji pobytu. Operacyjna obecność w Europie oraz w krajach źródłowych (np. Kuba, Filipiny, Kenia).
+                    <h3 class="font-heading text-xl font-bold text-white">Skala i Globalny Zasięg</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        REM umożliwia przeprowadzenie procesu z dowolnego kraju świata do dowolnego kraju docelowego, przy zachowaniu jednolitych standardów operacyjnych i finansowych[cite: 12].
                     </p>
+                    <ul class="space-y-2 pt-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-cyan"></i> Obecność w Europie i krajach źródłowych[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-cyan"></i> Odpowiedź na luki demograficzne[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-cyan"></i> Gotowość do replikacji modelu[cite: 12]</li>
+                    </ul>
                 </div>
 
-                <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-6 hover:border-slate-600 transition-all">
-                    <div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center text-indigo-400 mb-4">
-                        <i data-lucide="check-circle" class="w-6 h-6"></i>
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-8 space-y-5 relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-violet/10 border border-accent-violet/20 flex items-center justify-center text-accent-violet group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-2">Potwierdzony Popyt</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Posiadamy 1 500 zakontraktowanych zleceń relokacji pracowników z Kuby do Polski, gwarantowanych przez duże podmioty oraz licencjonowane agencje.
+                    <h3 class="font-heading text-xl font-bold text-white">Potwierdzony Popyt Rynkowy</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Spółka posiada zakontraktowane zlecenia relokacyjne na 1 500 pracowników z Kuby do Polski[cite: 12]. Miejsca pracy gwarantują duże podmioty oraz licencjonowane agencje[cite: 12].
                     </p>
+                    <ul class="space-y-2 pt-2 text-xs text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-violet"></i> Brak konieczności budowy popytu[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-violet"></i> Szybki start i efekt skali[cite: 12]</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-violet"></i> Bezpośrednie zapotrzebowanie pracodawców[cite: 12]</li>
+                    </ul>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- MODEL BIZNESOWY & FINANSOWANIE -->
-    <section id="model-biznesowy" class="py-20 bg-slate-800/50 border-y border-slate-800">
+    <!-- SECTION 2: MODEL OPERACYJNY I CYKL RELOKACJI -->
+    <section id="model-operacyjny" class="py-24 relative z-10 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold text-white tracking-tight mb-6">Model Biznesowy i Finansowy</h2>
-                    <p class="text-slate-300 leading-relaxed mb-6">
-                        Model opiera się na pełnej obsłudze procesu oraz partycypacji kosztowej pracownika. Nie zawiera marż tradycyjnych agencji pracy, co zapewnia pełną przejrzystość finansową.
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Narrative -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 text-accent-emerald text-[11px] font-bold uppercase tracking-widest border border-accent-emerald/20">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Pełen Cykl Operacyjny
+                    </div>
+                    <h2 class="font-heading text-3xl font-extrabold text-white tracking-tight">
+                        Przemyślany Harmonogram 18-Miesięczny
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Proces został precyzyjnie podzielony na dwie fazy: 6-miesięczny etap przygotowawczy oraz 12-miesięczny etap monetyzacji i spłaty pożyczki relokacyjnej[cite: 12].
                     </p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 bg-slate-900/60 rounded-lg border border-slate-700/50">
-                            <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg shrink-0">
-                                <i data-lucide="wallet" class="w-5 h-5"></i>
-                            </div>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="p-4 rounded-xl glass-card flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0 font-bold text-xs">01</div>
                             <div>
-                                <h4 class="font-semibold text-white text-sm">Udział własny kandydata: 235 EUR</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">
-                                    Wnoszony przed uruchomieniem finansowania. Potwierdza zaangażowanie i eliminuje ryzyko rezygnacji na etapie wstępnym.
-                                </p>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Selekcja & Wkład Własny (235 €)[cite: 12]</h4>
+                                <p class="text-[11px] text-slate-400 mt-1">Kandydat wnosi własny wkład na dokumenty wizowe, co filtruje osoby niezaangażowane[cite: 12].</p>
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-4 p-4 bg-slate-900/60 rounded-lg border border-slate-700/50">
-                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
-                                <i data-lucide="landmark" class="w-5 h-5"></i>
-                            </div>
+                        <div class="p-4 rounded-xl glass-card flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-accent-cyan/20 text-accent-cyan flex items-center justify-center shrink-0 font-bold text-xs">02</div>
                             <div>
-                                <h4 class="font-semibold text-white text-sm">Pożyczka celowa: 6 000 EUR</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">
-                                    Udzielana wyłącznie po uzyskaniu wizy i pozwolenia na pracę. Przeznaczona na pokrycie faktury operatora za usługi relokacyjne.
-                                </p>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Uzyskanie Wizy & Pożyczka (6 000 €)[cite: 12]</h4>
+                                <p class="text-[11px] text-slate-400 mt-1">Finansowanie jest uruchamiane wyłącznie po pozytywnej decyzji administracyjnej[cite: 12].</p>
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-4 p-4 bg-slate-900/60 rounded-lg border border-slate-700/50">
-                            <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg shrink-0">
-                                <i data-lucide="calendar" class="w-5 h-5"></i>
-                            </div>
+                        <div class="p-4 rounded-xl glass-card flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-accent-emerald/20 text-accent-emerald flex items-center justify-center shrink-0 font-bold text-xs">03</div>
                             <div>
-                                <h4 class="font-semibold text-white text-sm">Spłata: 500 EUR / miesiąc przez 12 miesięcy</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">
-                                    Spłata regulowana bezpośrednio po rozpoczęciu zatrudnienia. Całkowity horyzont projektu wynosi 18 miesięcy.
-                                </p>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Praca & Raty (500 € / mies.)[cite: 12]</h4>
+                                <p class="text-[11px] text-slate-400 mt-1">Automatyczne potrącanie rat z wynagrodzenia u pracodawcy przez okres 12 miesięcy[cite: 12].</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- HARMONOGRAM TIMELINE -->
-                <div class="bg-slate-900 rounded-2xl p-6 border border-slate-700/80">
-                    <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                        <i data-lucide="clock" class="text-blue-400 w-5 h-5"></i> Cykl Relokacji i Monetyzacji (18 mies.)
+                <!-- Right Visual Interactive Timeline -->
+                <div class="lg:col-span-7 glass-card rounded-3xl p-8 border border-slate-700/80 shadow-2xl relative">
+                    <h3 class="font-heading text-xl font-bold text-white mb-8 flex items-center gap-3">
+                        <i data-lucide="clock" class="text-brand-400 w-6 h-6"></i>
+                        <span>Ścieżka Uczestnika Programu REM</span>
                     </h3>
 
-                    <div class="relative border-l-2 border-blue-500/30 ml-4 space-y-8">
-                        <div class="relative pl-6">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-900"></div>
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Miesiące 1 – 6</span>
-                            <h4 class="text-base font-semibold text-white mt-1">Faza Przygotowawcza</h4>
-                            <p class="text-xs text-slate-400 mt-1">
-                                Rejestracja, wniesienie udziału własnego (235 EUR), szkolenia językowe/zawodowe, procedura wizowa i pozwolenie na pracę.
+                    <!-- Timeline Grid -->
+                    <div class="relative border-l-2 border-brand-500/30 ml-4 space-y-10 pl-8">
+                        
+                        <!-- Step 1 -->
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-brand-500 border-4 border-dark-base group-hover:scale-125 transition-transform"></div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Miesiące 1 – 3</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300">Etap Wstępny</span>
+                            </div>
+                            <h4 class="text-base font-bold text-white mt-1">Profilowanie & Opłata Własna</h4>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                Weryfikacja kwalifikacji przez system AI[cite: 12], złożenie kompletu dokumentów oraz wpłata 235 EUR na procedury pozwoleniowe[cite: 12].
                             </p>
                         </div>
 
-                        <div class="relative pl-6">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-emerald-500 border-4 border-slate-900"></div>
-                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Kamień Milowy</span>
-                            <h4 class="text-base font-semibold text-white mt-1">Wiza & Finansowanie pożyczkowe</h4>
-                            <p class="text-xs text-slate-400 mt-1">
-                                Udzielenie pożyczki (6 000 EUR) wyłącznie po pozytywnej decyzji wizowej. Podpisanie dokumentów i zabezpieczeń.
+                        <!-- Step 2 -->
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-accent-cyan border-4 border-dark-base group-hover:scale-125 transition-transform"></div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-accent-cyan uppercase tracking-wider">Miesiące 4 – 6</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300">Edukacja & Konsulat</span>
+                            </div>
+                            <h4 class="text-base font-bold text-white mt-1">Szkolenia & Decyzja Wizowa</h4>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                Szkolenia językowe (PL) oraz branżowe[cite: 12]. Złożenie wniosku wizowego w konsulacie. Po uzyskaniu wizy – uruchomienie pożyczki[cite: 12].
                             </p>
                         </div>
 
-                        <div class="relative pl-6">
-                            <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-500 border-4 border-slate-900"></div>
-                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Miesiące 7 – 18</span>
-                            <h4 class="text-base font-semibold text-white mt-1">Praca & Spłata (12 miesięcy)</h4>
-                            <p class="text-xs text-slate-400 mt-1">
-                                Przyjazd, zakwaterowanie, rozpoczęcie pracy. Misięczna rata 500 EUR potrącana bezpośrednio z wynagrodzenia.
+                        <!-- Step 3 -->
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-accent-emerald border-4 border-dark-base group-hover:scale-125 transition-transform"></div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-accent-emerald uppercase tracking-wider">Miesiąc 7</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300">Relokacja</span>
+                            </div>
+                            <h4 class="text-base font-bold text-white mt-1">Przelot & Odbiór w Kraju Docelowym</h4>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                Logistyka transportowa[cite: 12], zakwaterowanie, przydzielenie opiekuna i pakietu startowego[cite: 12]. Podpisanie umowy z pracodawcą.
                             </p>
                         </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-accent-violet border-4 border-dark-base group-hover:scale-125 transition-transform"></div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-accent-violet uppercase tracking-wider">Miesiące 7 – 18</span>
+                                <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300">Monetyzacja</span>
+                            </div>
+                            <h4 class="text-base font-bold text-white mt-1">Zatrudnienie & Harmonogram Spłat</h4>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                Praca na pełen etat[cite: 12]. Regularna spłata pożyczki w 12 ratach po 500 EUR[cite: 12]. Pełny monitoring portfela w czasie rzeczywistym[cite: 12].
+                            </p>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
+
         </div>
     </section>
 
-    <!-- ZABEZPIECZENIA INWESTORA -->
-    <section id="zabezpieczenia" class="py-20 bg-slate-900">
+    <!-- SECTION 3: FINANSOWANIE I ROLA INWESTORA -->
+    <section id="finanse" class="py-24 relative z-10 border-t border-slate-800 bg-dark-base/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Bezpieczeństwo Kapitału</span>
-                <h2 class="text-3xl font-bold text-white tracking-tight mt-2">Wielopoziomowy System Zabezpieczeń</h2>
-                <p class="text-slate-400 mt-3">
-                    Struktura finansowa stworzona z myślą o minimalizacji ryzyka kredytowego i operacyjnego dla Inwestora.
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-[11px] font-bold uppercase tracking-widest border border-accent-cyan/20">
+                    <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Architektura Finansowa
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Rola Partnera Finansowego / Inwestora
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Inwestor pełni rolę partnera kapitałowego udzielającego pożyczek celowych uczestnikom[cite: 12]. Nie angażuje się w skomplikowany proces operacyjny[cite: 12].
                 </p>
             </div>
 
+            <!-- 3 Column Business Model -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-brand-500 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest">Model Celowy</span>
+                        <h3 class="font-heading text-xl font-bold text-white">Pożyczka 6 000 EUR</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Środki z pożyczki trafiają bezpośrednio na pokrycie faktury operatora REM za usługi relokacyjne, edukacyjne i prawne[cite: 12].
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800 mt-6 text-xs text-slate-300 space-y-2">
+                        <div class="flex justify-between"><span>Celowanie:</span><strong class="text-white">100% Faktura Operatora[cite: 12]</strong></div>
+                        <div class="flex justify-between"><span>Wypłata:</span><strong class="text-white">Po Wizie[cite: 12]</strong></div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-accent-emerald flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-accent-emerald uppercase tracking-widest">Przejrzystość</span>
+                        <h3 class="font-heading text-xl font-bold text-white">Brak Marży Agencji</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Projekt funkcjonuje jako niezależny model i nie obejmuje prowizji tradycyjnych agencji pracy, zapewniając czystość przepływów[cite: 12].
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800 mt-6 text-xs text-slate-300 space-y-2">
+                        <div class="flex justify-between"><span>Przychód:</span><strong class="text-white">Opłaty Procesowe[cite: 12]</strong></div>
+                        <div class="flex justify-between"><span>Horyzont:</span><strong class="text-white">18 Miesięcy[cite: 12]</strong></div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-accent-violet flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-[10px] font-bold text-accent-violet uppercase tracking-widest">Formuła Współpracy</span>
+                        <h3 class="font-heading text-xl font-bold text-white">Elastyczne Formy</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Inwestor może realizować zaangażowanie jako dedykowaną linię pożyczkową, portfel pożyczek celowych lub produkt partnera[cite: 12].
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-slate-800 mt-6 text-xs text-slate-300 space-y-2">
+                        <div class="flex justify-between"><span>Obsługa:</span><strong class="text-white">Pełna po stronie REM[cite: 12]</strong></div>
+                        <div class="flex justify-between"><span>Monitoring:</span><strong class="text-white">Dashboard KPI 24/7[cite: 12]</strong></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: STRUKTURA ZABEZPIECZEŃ (5-LEVEL SECURITY) -->
+    <section id="zabezpieczenia" class="py-24 relative z-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-emerald/10 text-accent-emerald text-[11px] font-bold uppercase tracking-widest border border-accent-emerald/20">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Ochrona Kapitału
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Wielopoziomowy System Zabezpieczeń Inwestora
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Aż 5 niezależnych poziomów osłony finansowo-prawnej ograniczających ryzyko braku spłaty do absolutnego minimum[cite: 12].
+                </p>
+            </div>
+
+            <!-- 5 Security Pillars Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="users-round" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Wzajemne poręczenie (Żyranci)</h3>
+                
+                <!-- Pillar 1 -->
+                <div class="glass-card rounded-2xl p-6 space-y-4 hover:border-accent-emerald/40 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 text-accent-emerald flex items-center justify-center">
+                            <i data-lucide="users-2" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Poziom 01</span>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white">Wzajemne Poręczenie (Żyranci)</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Krzyżowe poręczenia pomiędzy uczestnikami danej grupy relokacyjnej tworzące odpowiedzialność grupową.
+                        Krzyżowe zobowiązania poręczycielskie pomiędzy członkami danej grupy relokacyjnej tworzące zbiorową odpowiedzialność[cite: 12].
                     </p>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="file-signature" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Potwierdzenie Notarialne</h3>
+                <!-- Pillar 2 -->
+                <div class="glass-card rounded-2xl p-6 space-y-4 hover:border-accent-emerald/40 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 text-accent-emerald flex items-center justify-center">
+                            <i data-lucide="file-check" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Poziom 02</span>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white">Notarialna Potwierdzalność</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Formalno-prawne, notarialne potwierdzenie zaciągniętych zobowiązań finansowych uczestnika.
+                        Oficjalne notarialne potwierdzenie długów i zobowiązań finasowych uczestnika programu jeszcze przed wyjazdem[cite: 12].
                     </p>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="shield-alert" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Art. 777 K.P.C.</h3>
+                <!-- Pillar 3 -->
+                <div class="glass-card rounded-2xl p-6 space-y-4 hover:border-accent-emerald/40 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 text-accent-emerald flex items-center justify-center">
+                            <i data-lucide="scale" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Poziom 03</span>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white">Oświadczenie Art. 777 K.P.C.</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Oświadczenie o dobrowolnym poddaniu się egzekucji komorniczej na mocy przepisów Kodeksu Postępowania Cywilnego.
+                        Zgoda na dobrowolne poddanie się egzekucji komorniczej bez konieczności prowadzenia długotrwałego procesu sądowego[cite: 12].
                     </p>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="arrow-left-right" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Potrącenie z Wynagrodzenia</h3>
+                <!-- Pillar 4 -->
+                <div class="glass-card rounded-2xl p-6 space-y-4 hover:border-accent-emerald/40 transition-all">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 text-accent-emerald flex items-center justify-center">
+                            <i data-lucide="arrow-right-left" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Poziom 04</span>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white">Potrącenie z Wynagrodzenia</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Zgoda pracownika na automatyczne potrącanie rat pożyczki bezpośrednio u pracodawcy przed wypłatą pensji.
+                        Zgoda pracownika na przekazywanie rat pożyczki bezpośrednio przez konto pracodawcy przed wypłatą pensji[cite: 12].
                     </p>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="building" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Poręczenie Operatora</h3>
+                <!-- Pillar 5 -->
+                <div class="glass-card rounded-2xl p-6 space-y-4 hover:border-accent-emerald/40 transition-all lg:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-accent-emerald/10 text-accent-emerald flex items-center justify-center">
+                            <i data-lucide="building-2" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Poziom 05</span>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-white">Poręczenie Organizacyjne Operatora REM</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Poręczenie organizacyjne spółki realizującej projekt REM, pełniącej rolę integratora i kontrolera procesu.
+                        Spółka REM pełni rolę integratora, kontrolera oraz poręczyciela organizacyjnego całego portfela[cite: 12], gwarantując najwyższe wskaźniki odzysku i monitoringu[cite: 12].
                     </p>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-6">
-                    <i data-lucide="badge-check" class="w-8 h-8 text-emerald-400 mb-4"></i>
-                    <h3 class="font-bold text-white text-lg mb-2">Weryfikacja Wstępna</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Brak ryzyka finansowania osób z odmową wizową – pożyczka wypłacana jest wyłącznie sprawdzonym kandydatom z wizą.
-                    </p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- INFORMATYZACJA, AI, LLM & STRATEGIA LEO -->
-    <section id="technologia" class="py-20 bg-slate-800/30 border-t border-slate-800">
+    <!-- SECTION 5: INFORMATYZACJA, AI, LLM I SATELITY LEO -->
+    <section id="technologia" class="py-24 relative z-10 border-t border-slate-800 bg-dark-base/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">HRTech / FinTech / MobilityTech</span>
-                <h2 class="text-3xl font-bold text-white tracking-tight mt-2">Technologia, AI oraz Satelity LEO</h2>
-                <p class="text-slate-400 mt-3">
-                    REM to cyfrowa platforma end-to-end zintegrowana z modelami LLM oraz infrastrukturą globalnej dostępności.
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-violet/10 text-accent-violet text-[11px] font-bold uppercase tracking-widest border border-accent-violet/20">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Platforma Technologiczna
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Technologia, AI oraz Komunikacja Satelitarna LEO
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    REM nie jest tradycyjną agencją pracy, lecz platformą technologiczną klasy HRTech / FinTech z architekturą „Low Human-Touch”[cite: 12].
                 </p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8">
-                <!-- AI / LLM / Low Human Touch -->
-                <div class="bg-slate-900 border border-slate-700/80 rounded-2xl p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
-                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                
+                <!-- AI & LLM Core -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+                            <i data-lucide="bot" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Sztuczna Inteligencja & LLM</h3>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-white">Sztuczna Inteligencja & Moduł LLM</h3>
+                            <p class="text-xs text-slate-400">Automatyzacja procesów rekrutacyjnych i prawnych[cite: 12]</p>
+                        </div>
                     </div>
 
-                    <ul class="space-y-4 text-sm text-slate-300">
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Automatyczna analiza dokumentów:</strong> Weryfikacja paszportów, umów i zaświadczeń, ekstrakcja danych oraz wykrywanie ryzyka formalnego.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Wielojęzyczna komunikacja (PL-ES-EN):</strong> Automatyczne tłumaczenia, spersonalizowane komunikaty oraz chatbot 24/7 dla kandydatów z Ameryki Łacińskiej.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Model „Low Human-Touch”:</strong> Automatyczny scoring kompetencyjny, matching z ofertami oraz monitoring procesów wizowych bez potrzeby skalowania personelu.</span>
-                        </li>
-                    </ul>
+                    <div class="space-y-4 text-xs text-slate-300">
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Automatyczna Analiza Dokumentów (OCR)</h4>
+                            <p class="text-slate-400">Ekstrakcja danych z paszportów, zaświadczeń i umów, weryfikacja niezgodności oraz klasyfikacja ryzyka administracyjnego[cite: 12].</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Wielojęzyczny Asystent 24/7 (PL - ES - EN)</h4>
+                            <p class="text-slate-400">Automatyczne tłumaczenia komunikatów i dokumentów dla kandydatów z krajów hiszpańskojęzycznych (np. Kuba)[cite: 12].</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Model Operacyjny "Low Human-Touch"</h4>
+                            <p class="text-slate-400">Możliwość obsługi tysięcy kandydatów bez proporcjonalnego wzrostu kosztów stałych i personelu operacyjnego[cite: 12].</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Satelity & Łączność Globalna -->
-                <div class="bg-slate-900 border border-slate-700/80 rounded-2xl p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl">
+                <!-- LEO Satellite Infrastructure -->
+                <div class="glass-card rounded-3xl p-8 border border-slate-700/80 space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-accent-cyan/10 text-accent-cyan flex items-center justify-center">
                             <i data-lucide="satellite" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Infrastruktura Łączności Satelitarnej</h3>
+                        <div>
+                            <h3 class="font-heading text-xl font-bold text-white">Infrastruktura Satelitarna LEO</h3>
+                            <p class="text-xs text-slate-400">Maksymalna dostępność w trudnych regionach[cite: 12]</p>
+                        </div>
                     </div>
 
-                    <ul class="space-y-4 text-sm text-slate-300">
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Niezależność od lokalnych sieci:</strong> Wykorzystanie łączności satelitarnej w krajach o ograniczonej infrastrukturze internetowej.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Mikrosatelity LEO:</strong> Długoterminowa strategia zakładająca udział w budowie niskoorbitalnych mikrosatelitów komunikacyjnych do transmisji danych.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
-                            <span><strong>Ciągłość operacyjna:</strong> Bezprzerwowy dostęp do aplikacji i systemu spłat z dowolnego miejsca na świecie.</span>
-                        </li>
-                    </ul>
+                    <div class="space-y-4 text-xs text-slate-300">
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Niezależność od Operatorów Lokalnych</h4>
+                            <p class="text-slate-400">Łączność satelitarna zapewnia ciągłość rejestracji kandydatów i spłat pożyczek nawet w regionach o słabej sieci internetowej[cite: 12].</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Strategia Mikrosatelitów (LEO)</h4>
+                            <p class="text-slate-400">Długoterminowy plan zakłada rozwój lub współfinansowanie mikrosatelitów na niskiej orbicie okołoziemskiej do transmisji danych[cite: 12].</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <h4 class="font-bold text-white mb-1">Bezpieczeństwo & RODO / GDPR</h4>
+                            <p class="text-slate-400">Szyfrowanie end-to-end, pełne ścieżki audytowe oraz wielopoziomowa kontrola dostępu do danych osobowych[cite: 12].</p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+
         </div>
     </section>
 
-    <!-- FOOTER / KONTAKT -->
-    <footer id="kontakt" class="mt-auto bg-slate-950 border-t border-slate-800 py-12">
+    <!-- SECTION 6: INTERAKTYWNY KALKULATOR PORTFELA DLA INWESTORA -->
+    <section id="kalkulator" class="py-24 relative z-10 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-sm text-white">
-                            REM
+            
+            <div class="glass-card rounded-3xl p-8 lg:p-12 border border-brand-500/30 shadow-2xl">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-[11px] font-bold uppercase tracking-widest border border-brand-500/20">
+                            <i data-lucide="calculator" class="w-3.5 h-3.5"></i> Symulator Portfela
                         </div>
-                        <span class="text-lg font-bold text-white">Relocation Education Manpower</span>
+                        <h2 class="font-heading text-3xl font-extrabold text-white tracking-tight">
+                            Kalkulator Dedykowanej Linii Pożyczkowej
+                        </h2>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Przetestuj skalę zaangażowania finansowego. Oblicz wolumen kapitału i roczne przepływy gotówkowe w zależności od liczby obsługiwanych pracowników[cite: 12].
+                        </p>
                     </div>
-                    <p class="text-xs text-slate-400">
-                        Platforma FinTech / HRTech dla globalnej mobilności pracowniczej.
+
+                    <!-- Calculator Controls -->
+                    <div class="lg:col-span-7 space-y-8 bg-slate-900/90 p-8 rounded-2xl border border-slate-800">
+                        <!-- Slider 1: Liczba Pracowników -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                <span class="text-slate-300">Liczba Uczestników (Kandydatów)</span>
+                                <span id="workers-count" class="text-brand-400 text-lg font-heading">500</span>
+                            </div>
+                            <input id="slider-workers" type="range" min="100" max="3000" step="50" value="500" 
+                                   class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <div class="flex justify-between text-[10px] text-slate-500">
+                                <span>100 os.</span>
+                                <span>1 500 os. (Kuba kontrakt)[cite: 12]</span>
+                                <span>3 000 os.</span>
+                            </div>
+                        </div>
+
+                        <!-- Results Card Grid -->
+                        <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
+                            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Wymagany Kapitał Portfela</span>
+                                <div id="total-capital" class="text-2xl font-heading font-bold text-white mt-1">3 000 000 €</div>
+                                <span class="text-[10px] text-slate-500 mt-1 block">W oparciu o 6 000 € / osobę[cite: 12]</span>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                                <span class="text-[10px] font-bold text-accent-emerald uppercase tracking-wider">Roczny Przepływ Spłat (Cashflow)</span>
+                                <div id="total-repayment" class="text-2xl font-heading font-bold text-accent-emerald mt-1">3 000 000 €</div>
+                                <span class="text-[10px] text-slate-500 mt-1 block">12 rat x 500 € / osobę[cite: 12]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACT SECTION -->
+    <footer id="kontakt" class="relative z-10 border-t border-slate-800 bg-dark-base pt-20 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 pb-16 border-b border-slate-800">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 bg-gradient-to-tr from-brand-600 to-accent-cyan rounded-xl flex items-center justify-center font-bold text-white">
+                            <i data-lucide="eye" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="font-heading font-bold text-xl tracking-wider text-white block leading-none">REM</span>
+                            <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-widest">Relocation Education Manpower</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                        Globalna cyfrowa platforma łącząca rynek pracy, legalną migrację zarobkową oraz instytucjonalne finansowanie w modelu platformowym SaaS / HRTech / FinTech[cite: 12].
                     </p>
                 </div>
 
-                <div class="text-center md:text-right">
-                    <p class="text-xs text-slate-400">© 2026 REM Platform. Wszelkie prawa zastrzeżone.</p>
+                <!-- Col 2: Navigation Links -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Nawigacja Projektu</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#o-projekcie" class="hover:text-brand-400 transition-colors">O Projekcie i Geneza</a></li>
+                        <li><a href="#model-operacyjny" class="hover:text-brand-400 transition-colors">Model 18-Miesięczny</a></li>
+                        <li><a href="#finanse" class="hover:text-brand-400 transition-colors">Rola Partnera Finansowego</a></li>
+                        <li><a href="#zabezpieczenia" class="hover:text-brand-400 transition-colors">Struktura Zabezpieczeń (5 Poziomów)</a></li>
+                        <li><a href="#technologia" class="hover:text-brand-400 transition-colors">AI, LLM & Satelity LEO</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Details -->
+                <div class="lg:col-span-4 space-y-4">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Kontakt dla Inwestorów</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Chcesz otrzymać pełną dokumentację inwestycyjną, model finansowy oraz szczegółowe opinie prawne dotyczące zabezpieczeń?
+                    </p>
+                    <a href="mailto:kontakt@rem.com" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span>Skontaktuj się z Zespołem REM</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+                <p>© 2026 REM (Relocation Education Manpower). Wszelkie prawa zastrzeżone.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-400">Polityka Prywatności</a>
+                    <a href="#" class="hover:text-slate-400">RODO / GDPR</a>
+                    <a href="#" class="hover:text-slate-400">Bezpieczeństwo Danych</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Script to render icons -->
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
+        // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Mobile Menu Toggle Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Investment Portfolio Calculator Logic
+        const sliderWorkers = document.getElementById('slider-workers');
+        const workersCountDisplay = document.getElementById('workers-count');
+        const totalCapitalDisplay = document.getElementById('total-capital');
+        const totalRepaymentDisplay = document.getElementById('total-repayment');
+
+        function updateCalculator() {
+            const workers = parseInt(sliderWorkers.value);
+            const loanPerWorker = 6000; // 6,000 EUR per worker
+            const monthlyRepayment = 500; // 500 EUR per month
+            const months = 12; // 12 months
+
+            const totalCapital = workers * loanPerWorker;
+            const totalRepayment = workers * monthlyRepayment * months;
+
+            workersCountDisplay.textContent = workers.toLocaleString('pl-PL') + " os.";
+            totalCapitalDisplay.textContent = totalCapital.toLocaleString('pl-PL') + " €";
+            totalRepaymentDisplay.textContent = totalRepayment.toLocaleString('pl-PL') + " €";
+        }
+
+        sliderWorkers.addEventListener('input', updateCalculator);
+        updateCalculator();
     </script>
 </body>
 </html>
