@@ -735,7 +735,7 @@
                         <span id="cookie-banner-title" data-i18n="cookie.title">Prywatność i Pliki Cookie (RODO / GDPR)</span>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed" data-i18n="cookie.description">
-                        Nasza strona wykorzystuje pliki cookie w celu zapewnienia prawidłowego funkcjonowania serwisu, analizy ruchu oraz dopasowania treści. Administratorem Twoich danych osobowych jest REM Platform.
+                        Nasza strona wykorzystuje pliki cookie w celu zapewnienia prawidłowego funkcjonowania serwisu, analizy ruchu oraz dopasowania treści. Twój wybór obowiązuje tylko podczas bieżącego wyświetlenia strony.
                     </p>
                 </div>
 
@@ -865,7 +865,7 @@
                 "footer.gdpr": "Klauzula RODO / GDPR",
                 "footer.contactTitle": "Kontakt dla Inwestorów",
                 "cookie.title": "Prywatność i Pliki Cookie (RODO / GDPR)",
-                "cookie.description": "Nasza strona wykorzystuje pliki cookie w celu zapewnienia prawidłowego funkcjonowania serwisu, analizy ruchu oraz dopasowania treści.",
+                "cookie.description": "Nasza strona wykorzystuje pliki cookie w celu zapewnienia prawidłowego funkcjonowania serwisu, analizy ruchu oraz dopasowania treści. Twój wybór obowiązuje tylko podczas bieżącego wyświetlenia strony.",
                 "cookie.essential": "Tylko Niezbędne",
                 "cookie.acceptAll": "Akceptuję wszystkie",
                 "cookie.settingsLink": "Ustawienia Cookies"
@@ -979,7 +979,7 @@
                 "footer.gdpr": "GDPR Compliance",
                 "footer.contactTitle": "Investor Contact",
                 "cookie.title": "Privacy & Cookies (GDPR)",
-                "cookie.description": "Our website uses cookies to ensure proper functionality, analyze traffic, and personalize content.",
+                "cookie.description": "Our website uses cookies to ensure proper functionality, analyze traffic, and personalize content. Your choice applies only to the current page view.",
                 "cookie.essential": "Essential Only",
                 "cookie.acceptAll": "Accept All",
                 "cookie.settingsLink": "Cookie Settings"
@@ -1093,7 +1093,7 @@
                 "footer.gdpr": "Cumplimiento RGPD",
                 "footer.contactTitle": "Contacto Inversores",
                 "cookie.title": "Privacidad y Cookies (RGPD)",
-                "cookie.description": "Nuestro sitio web utiliza cookies para garantizar el funcionamiento correcto, analizar el tráfico y personalizar contenidos.",
+                "cookie.description": "Nuestro sitio web utiliza cookies para garantizar el funcionamiento correcto, analizar el tráfico y personalizar contenidos. Tu elección se aplica solo a la visualización actual de la página.",
                 "cookie.essential": "Solo Necesarias",
                 "cookie.acceptAll": "Aceptar Todas",
                 "cookie.settingsLink": "Ajustes de Cookies"
@@ -1170,17 +1170,8 @@
             // Uruchomienie domyślnego języka
             changeLanguage(currentLang);
 
-            // Logika Cookie Banner
-            const cookieBanner = document.getElementById('cookie-banner');
-            const COOKIE_CONSENT_KEY = 'rem_cookie_consent_v1';
-            const storedConsent = safeStorageGet(COOKIE_CONSENT_KEY);
-
-            if (!storedConsent) {
-                showCookieBanner();
-            } else {
-                cookieBanner.classList.add('hidden', 'translate-y-full');
-                applyCookieConsent(storedConsent);
-            }
+            // Baner pojawia się przy każdym pełnym otwarciu lub odświeżeniu strony.
+            showCookieBanner();
         });
 
         // 5. OBSŁUGA DYNAMICZNEGO MENU MOBILNEGO
@@ -1219,7 +1210,6 @@
 
         // 6. EVENT LISTENEROWIE DLA BANERA COOKIES
         const cookieBanner = document.getElementById('cookie-banner');
-        const COOKIE_CONSENT_KEY = 'rem_cookie_consent_v1';
 
         function applyCookieConsent(consent) {
             document.documentElement.dataset.cookieConsent = consent;
@@ -1235,19 +1225,18 @@
             });
         }
 
-        function saveCookieConsent(consent) {
-            safeStorageSet(COOKIE_CONSENT_KEY, consent);
+        function applyCurrentViewConsent(consent) {
             applyCookieConsent(consent);
             cookieBanner.classList.add('translate-y-full', 'opacity-0');
             window.setTimeout(() => cookieBanner.classList.add('hidden'), 500);
         }
 
         document.getElementById('cookie-accept-btn').addEventListener('click', () => {
-            saveCookieConsent('all');
+            applyCurrentViewConsent('all');
         });
 
         document.getElementById('cookie-reject-btn').addEventListener('click', () => {
-            saveCookieConsent('essential');
+            applyCurrentViewConsent('essential');
         });
 
         document.getElementById('open-cookie-settings').addEventListener('click', (e) => {
