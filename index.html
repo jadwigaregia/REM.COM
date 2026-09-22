@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pracy - Oferty Zatrudnienia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0a192f',
+                            blue: '#002147',
+                            primary: '#005edb',
+                            cyan: '#25b8e6',
+                            lightBg: '#f3f6f9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- NAVIGATION BAR -->
+    <header class="bg-brand-navy text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 bg-brand-cyan rounded-lg flex items-center justify-center font-extrabold text-brand-navy text-2xl tracking-tighter">
+                        R
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight text-white">randstad<span class="text-brand-cyan">.pl</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                    <a href="#oferty" class="hover:text-brand-cyan transition-colors py-2 border-b-2 border-transparent hover:border-brand-cyan">Dla kandydata</a>
+                    <a href="#kategorie" class="hover:text-brand-cyan transition-colors py-2 border-b-2 border-transparent hover:border-brand-cyan">Branże</a>
+                    <a href="#o-nas" class="hover:text-brand-cyan transition-colors py-2 border-b-2 border-transparent hover:border-brand-cyan">Dla pracodawcy</a>
+                    <a href="#blog" class="hover:text-brand-cyan transition-colors py-2 border-b-2 border-transparent hover:border-brand-cyan">Poradnik HR</a>
+                </nav>
+
+                <!-- Actions / Auth -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button class="flex items-center space-x-2 text-sm font-semibold hover:text-brand-cyan transition-colors px-3 py-2">
+                        <i data-lucide="user" class="w-4 h-4"></i>
+                        <span>Zaloguj się</span>
+                    </button>
+                    <a href="#oferty" class="bg-brand-cyan hover:bg-cyan-400 text-brand-navy font-bold px-5 py-2.5 rounded-full transition-all duration-200 transform hover:scale-105 text-sm shadow-sm">
+                        Aplikuj teraz
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-brand-blue focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6 text-white"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-blue border-t border-gray-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#oferty" class="block py-2 text-base font-medium hover:text-brand-cyan">Dla kandydata</a>
+            <a href="#kategorie" class="block py-2 text-base font-medium hover:text-brand-cyan">Branże</a>
+            <a href="#o-nas" class="block py-2 text-base font-medium hover:text-brand-cyan">Dla pracodawcy</a>
+            <a href="#blog" class="block py-2 text-base font-medium hover:text-brand-cyan">Poradnik HR</a>
+            <div class="pt-4 border-t border-gray-700 flex flex-col gap-3">
+                <button class="w-full flex justify-center items-center space-x-2 text-sm font-semibold py-2">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span>Zaloguj się</span>
+                </button>
+                <a href="#oferty" class="w-full text-center bg-brand-cyan text-brand-navy font-bold py-2.5 rounded-full">
+                    Aplikuj teraz
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION & SEARCH ENGINE -->
+    <section class="bg-gradient-to-b from-brand-navy via-brand-blue to-gray-900 text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                Hej, mamy dla Ciebie <span class="text-brand-cyan">nową pracę</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+                Odkryj tysiące sprawdzonych ofert pracy w Polsce i za granicą. Zrobimy wszystko, aby dopasować rolę do Twojego potencjału.
+            </p>
+
+            <!-- Search Form Card -->
+            <div class="bg-white rounded-2xl p-4 sm:p-6 text-gray-800 shadow-2xl max-w-4xl mx-auto text-left">
+                <form id="search-form" onsubmit="event.preventDefault(); filterJobs();" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                    <!-- Keyword input -->
+                    <div class="md:col-span-5 relative">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Stanowisko / Słowo kluczowe</label>
+                        <div class="relative">
+                            <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="keyword-input" placeholder="np. Magazynier, Analityk, Księgowa..." class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-primary focus:outline-none transition-all text-sm font-medium">
+                        </div>
+                    </div>
+
+                    <!-- Location input -->
+                    <div class="md:col-span-4 relative">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Lokalizacja</label>
+                        <div class="relative">
+                            <i data-lucide="map-pin" class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="location-input" placeholder="np. Warszawa, Poznań, Zdalnie" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-primary focus:outline-none transition-all text-sm font-medium">
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="md:col-span-3 flex items-end">
+                        <button type="submit" class="w-full bg-brand-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-blue-500/20 mt-5 md:mt-0">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                            <span>Szukaj ofert</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quick tags -->
+                <div class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap gap-2 items-center text-xs text-gray-500">
+                    <span class="font-semibold text-gray-700">Popularne:</span>
+                    <button onclick="setQuickSearch('Praca zdalna')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition-colors">Praca zdalna</button>
+                    <button onclick="setQuickSearch('Magazyn')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition-colors">Magazyn</button>
+                    <button onclick="setQuickSearch('Finanse')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition-colors">Finanse i Księgowość</button>
+                    <button onclick="setQuickSearch('IT')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition-colors">IT & Tech</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow">
+        
+        <!-- CATEGORIES SECTION -->
+        <section id="kategorie" class="mb-16">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Obecnie rekrutujemy</h2>
+                    <p class="text-gray-500 mt-1">Wybierz interesującą Cię branżę i przejdź do ogłoszeń</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                <div onclick="filterByCategory('Produkcja')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="factory" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">Produkcja</h3>
+                </div>
+
+                <div onclick="filterByCategory('Magazyn')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="package" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">Magazyn</h3>
+                </div>
+
+                <div onclick="filterByCategory('Administracja')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">Administracja</h3>
+                </div>
+
+                <div onclick="filterByCategory('Finanse')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="calculator" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">Finanse</h3>
+                </div>
+
+                <div onclick="filterByCategory('IT')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="laptop" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">IT / Software</h3>
+                </div>
+
+                <div onclick="filterByCategory('Praca za granicą')" class="bg-white p-5 rounded-2xl text-center border border-gray-100 hover:border-brand-cyan hover:shadow-xl transition-all cursor-pointer group">
+                    <div class="w-12 h-12 bg-blue-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-cyan group-hover:text-brand-navy transition-colors">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-gray-800">Za granicą</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOB LISTINGS SECTION -->
+        <section id="oferty" class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Najnowsze oferty pracy</h2>
+                    <p class="text-gray-500 mt-1">Znaleziono <span id="job-count" class="font-bold text-brand-primary">0</span> dopasowanych ogłoszeń</p>
+                </div>
+
+                <!-- Type Filters -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="setFilterType('all')" id="filter-all" class="px-4 py-2 rounded-xl text-sm font-bold bg-brand-navy text-white transition-all">Wszystkie</button>
+                    <button onclick="setFilterType('Praca stała')" id="filter-stala" class="px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all">Praca stała</button>
+                    <button onclick="setFilterType('Praca tymczasowa')" id="filter-tymczasowa" class="px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all">Tymczasowa</button>
+                </div>
+            </div>
+
+            <!-- Jobs Grid -->
+            <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated JS cards -->
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div id="no-jobs" class="hidden text-center py-16 bg-white rounded-2xl border border-gray-100 p-8">
+                <div class="w-16 h-16 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="search-x" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">Brak wyników wyszukiwania</h3>
+                <p class="text-gray-500 text-sm max-w-md mx-auto mb-6">Nie znaleźliśmy ofert spełniających podane kryteria. Spróbuj zmienić słowa kluczowe lub zresetować filtry.</p>
+                <button onclick="resetFilters()" class="bg-brand-primary text-white font-bold px-6 py-2.5 rounded-xl text-sm hover:bg-blue-700 transition-colors">
+                    Pokaż wszystkie oferty
+                </button>
+            </div>
+        </section>
+
+        <!-- HR BANNER / PROMO SECTION -->
+        <section id="o-nas" class="bg-gradient-to-r from-brand-navy to-brand-blue rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl mb-16">
+            <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+                <div>
+                    <span class="bg-brand-cyan/20 text-brand-cyan text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Dla Pracodawców</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-4 mb-4 leading-tight">Szukasz wykwalifikowanych pracowników do swojego zespołu?</h2>
+                    <p class="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
+                        Pomożemy Ci rekrutować najlepsze talenty na rynku. Oferujemy rekrutacje stałe, leasing pracowniczy oraz outsourcing kadr i płac.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="alert('Dziękujemy za kontakt! Nasz doradca HR odezwie się do Ciebie w ciągu 24h.')" class="bg-brand-cyan hover:bg-cyan-400 text-brand-navy font-bold px-6 py-3 rounded-xl transition-all shadow-md text-sm">
+                            Zamów wycenę rekrutacji
+                        </button>
+                        <a href="#blog" class="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm border border-white/20">
+                            Dowiedz się więcej
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex justify-center">
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm max-w-sm w-full space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-brand-cyan/20 rounded-lg flex items-center justify-center text-brand-cyan font-bold">98%</div>
+                            <div>
+                                <h4 class="font-bold text-sm">Zadowolonych klientów</h4>
+                                <p class="text-xs text-gray-400">Skuteczność naszych rekrutacji</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-brand-cyan/20 rounded-lg flex items-center justify-center text-brand-cyan font-bold">24h</div>
+                            <div>
+                                <h4 class="font-bold text-sm">Szybka reakcja</h4>
+                                <p class="text-xs text-gray-400">Pierwsze kandydatury w 1 dzień</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARTICLES / BLOG SECTION -->
+        <section id="blog" class="mb-12">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Poradnik Kariery & Rynek Pracy</h2>
+                    <p class="text-gray-500 mt-1">Artykuły, trendy HR oraz porady dotyczące rozmowy kwalifikacyjnej</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <article class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center text-brand-primary p-6">
+                        <i data-lucide="file-text" class="w-16 h-16 opacity-40"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-brand-primary uppercase">Rozwój zawodowy</span>
+                        <h3 class="font-bold text-lg text-gray-900 mt-2 mb-2 leading-snug hover:text-brand-primary cursor-pointer">
+                            Jak przygotować CV, które przyciągnie uwagę rekrutera w 2026 roku?
+                        </h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                            Poznaj najważniejsze elementy nowoczesnego życiorysu zawodowego oraz dowiedz się, jakich błędów unikać.
+                        </p>
+                        <span class="text-xs text-gray-400">22 Września 2026 • 5 min czytania</span>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-teal-100 to-emerald-100 flex items-center justify-center text-teal-600 p-6">
+                        <i data-lucide="trending-up" class="w-16 h-16 opacity-40"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-teal-600 uppercase">Raporty płacowe</span>
+                        <h3 class="font-bold text-lg text-gray-900 mt-2 mb-2 leading-snug hover:text-brand-primary cursor-pointer">
+                            Zarobki w branży IT oraz Logistyce – Przegląd rynku pracy
+                        </h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                            Sprawdź aktualne stawki wynagrodzeń w najszybciej rozwijających się sektorach gospodarki.
+                        </p>
+                        <span class="text-xs text-gray-400">18 Września 2026 • 8 min czytania</span>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center text-purple-600 p-6">
+                        <i data-lucide="users" class="w-16 h-16 opacity-40"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-purple-600 uppercase">Porady dla pracodawców</span>
+                        <h3 class="font-bold text-lg text-gray-900 mt-2 mb-2 leading-snug hover:text-brand-primary cursor-pointer">
+                            Jak zatrzymać wartościowych pracowników w organizacji?
+                        </h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">
+                            Aż 70% pracowników deklaruje chęć zmiany pracy z powodu braku docenienia. Zobacz jak temu zapobiec.
+                        </p>
+                        <span class="text-xs text-gray-400">10 Września 2026 • 4 min czytania</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- APPLICATION MODAL -->
+    <div id="apply-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal()" class="absolute right-5 top-5 text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="mb-6">
+                <span class="text-xs font-bold text-brand-primary uppercase">Aplikacja na stanowisko</span>
+                <h3 id="modal-job-title" class="text-xl font-extrabold text-brand-navy mt-1">Główny Księgowy</h3>
+                <p id="modal-job-company" class="text-sm text-gray-500">Warszawa • Praca stała</p>
+            </div>
+
+            <form onsubmit="handleApplySubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Imię i Nazwisko *</label>
+                    <input type="text" required placeholder="Jan Kowalski" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-primary focus:outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Adres e-mail *</label>
+                    <input type="email" required placeholder="jan.kowalski@example.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-primary focus:outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Numer telefonu *</label>
+                    <input type="tel" required placeholder="+48 123 456 789" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-primary focus:outline-none text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Załącz CV (PDF, DOCX)</label>
+                    <input type="file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-brand-primary hover:file:bg-blue-100">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-brand-primary hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg text-sm">
+                        Wyślij zgłoszenie
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-navy text-gray-400 text-sm pt-16 pb-12 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 text-white font-bold text-xl mb-4">
+                        <div class="w-8 h-8 bg-brand-cyan rounded flex items-center justify-center text-brand-navy font-black">R</div>
+                        <span>randstad<span class="text-brand-cyan">.pl</span></span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Lider na rynku doradztwa personalnego i pracy tymczasowej. Łączymy najlepszych kandydatów z cenionymi pracodawcami.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Dla Kandydatów</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#oferty" class="hover:text-white transition-colors">Oferty Pracy</a></li>
+                        <li><a href="#kategorie" class="hover:text-white transition-colors">Kategorie i Branże</a></li>
+                        <li><a href="#blog" class="hover:text-white transition-colors">Porady dla poszukujących pracy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kalkulator Wynagrodzeń</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Dla Pracodawców</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#o-nas" class="hover:text-white transition-colors">Praca Tymczasowa</a></li>
+                        <li><a href="#o-nas" class="hover:text-white transition-colors">Rekrutacja Stała</a></li>
+                        <li><a href="#o-nas" class="hover:text-white transition-colors">Outsourcing Kadr i Płac</a></li>
+                        <li><a href="#blog" class="hover:text-white transition-colors">Raporty Rynku Pracy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Kontakt</h4>
+                    <p class="text-xs text-gray-400 mb-2">Randstad Polska Sp. z o.o.</p>
+                    <p class="text-xs text-gray-400 mb-2">al. Jerozolimskie 134, Warszawa</p>
+                    <p class="text-xs text-brand-cyan font-semibold">infolinia: +48 22 123 45 67</p>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p>© 2026 Randstad N.V. Wszelkie prawa zastrzeżone.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300">Polityka prywatności</a>
+                    <a href="#" class="hover:text-gray-300">Pliki cookies</a>
+                    <a href="#" class="hover:text-gray-300">Regulamin serwisu</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Sample Jobs Database
+        const jobsData = [
+            {
+                id: 1,
+                title: "Pracownik Magazynu / Order Picker",
+                category: "Magazyn",
+                location: "Poznań (Sady)",
+                salary: "4 800 - 5 600 PLN brutto",
+                type: "Praca tymczasowa",
+                company: "Amazon Logistics",
+                tags: ["Premia frekwencyjna", "Darmowy dojazd", "Bez doświadczenia"]
+            },
+            {
+                id: 2,
+                title: "Główny Księgowy / Senior Accountant",
+                category: "Finanse",
+                location: "Warszawa (Centrum)",
+                salary: "12 000 - 16 000 PLN brutto",
+                type: "Praca stała",
+                company: "Randstad Financial Client",
+                tags: ["Praca hybrydowa", "Opieka medyczna", "Karta Multisport"]
+            },
+            {
+                id: 3,
+                title: "Operator Wózka Widłowego (UDT)",
+                category: "Magazyn",
+                location: "Wrocław (Bielany)",
+                salary: "5 200 - 6 200 PLN brutto",
+                type: "Praca tymczasowa",
+                company: "Logistics Hub Sp. z o.o.",
+                tags: ["Uprawnienia UDT", "2 zmiany", "Ubezpieczenie"]
+            },
+            {
+                id: 4,
+                title: "Pracownik Produkcji - System 2-zmianowy",
+                category: "Produkcja",
+                location: "Gliwice",
+                salary: "4 600 - 5 300 PLN brutto",
+                type: "Praca tymczasowa",
+                company: "Automotive Parts Poland",
+                tags: ["Praca od zaraz", "Szkolenia wstępne"]
+            },
+            {
+                id: 5,
+                title: "Frontend Developer (React / Tailwind)",
+                category: "IT",
+                location: "Zdalnie",
+                salary: "14 000 - 19 000 PLN netto B2B",
+                type: "Praca stała",
+                company: "Tech Solutions Corp",
+                tags: ["100% Zdalnie", "Elastyczny czas pracy", "Projekt międzynarodowy"]
+            },
+            {
+                id: 6,
+                title: "Specjalista ds. Obsługi Klienta z j. niemieckim",
+                category: "Administracja",
+                location: "Kraków",
+                salary: "7 000 - 8 500 PLN brutto",
+                type: "Praca stała",
+                company: "Global Customer Center",
+                tags: ["Język niemiecki C1", "Praca hybrydowa", "Bonus roczny"]
+            }
+        ];
+
+        let currentCategoryFilter = null;
+        let currentTypeFilter = 'all';
+
+        // Render Jobs
+        function renderJobs(jobs) {
+            const container = document.getElementById('jobs-container');
+            const countElement = document.getElementById('job-count');
+            const noJobsElement = document.getElementById('no-jobs');
+
+            container.innerHTML = '';
+            countElement.textContent = jobs.length;
+
+            if (jobs.length === 0) {
+                noJobsElement.classList.remove('hidden');
+                return;
+            } else {
+                noJobsElement.classList.add('hidden');
+            }
+
+            jobs.forEach(job => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group relative border-l-4 border-l-brand-primary";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-xs font-bold text-brand-primary bg-blue-50 px-3 py-1 rounded-full">${job.type}</span>
+                            <span class="text-xs text-gray-400 font-medium">${job.category}</span>
+                        </div>
+                        
+                        <h3 class="font-extrabold text-lg text-brand-navy group-hover:text-brand-primary transition-colors mb-2">${job.title}</h3>
+                        <p class="text-xs font-semibold text-gray-500 mb-4">${job.company}</p>
+                        
+                        <div class="space-y-2 mb-6">
+                            <div class="flex items-center text-sm font-bold text-emerald-600">
+                                <i data-lucide="banknote" class="w-4 h-4 mr-2"></i>
+                                <span>${job.salary}</span>
+                            </div>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-gray-400"></i>
+                                <span>${job.location}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${job.tags.map(tag => `<span class="bg-gray-100 text-gray-600 text-[11px] font-medium px-2.5 py-1 rounded-md">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <button onclick="openModal('${job.title}', '${job.company}', '${job.location}')" class="w-full bg-gray-50 group-hover:bg-brand-primary group-hover:text-white text-brand-navy font-bold py-3 rounded-xl transition-all flex items-center justify-center space-x-2 text-sm border border-gray-200 group-hover:border-transparent">
+                        <span>Aplikuj na to stanowisko</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+
+            // Re-initialize icons for dynamic HTML
+            lucide.createIcons();
+        }
+
+        // Filter Logic
+        function filterJobs() {
+            const keyword = document.getElementById('keyword-input').value.toLowerCase();
+            const location = document.getElementById('location-input').value.toLowerCase();
+
+            const filtered = jobsData.filter(job => {
+                const matchesKeyword = job.title.toLowerCase().includes(keyword) || 
+                                       job.category.toLowerCase().includes(keyword) ||
+                                       job.tags.some(t => t.toLowerCase().includes(keyword));
+                const matchesLocation = job.location.toLowerCase().includes(location);
+                const matchesCategory = currentCategoryFilter ? job.category === currentCategoryFilter : true;
+                const matchesType = currentTypeFilter === 'all' ? true : job.type === currentTypeFilter;
+
+                return matchesKeyword && matchesLocation && matchesCategory && matchesType;
+            });
+
+            renderJobs(filtered);
+        }
+
+        function setQuickSearch(term) {
+            document.getElementById('keyword-input').value = term;
+            filterJobs();
+        }
+
+        function filterByCategory(category) {
+            currentCategoryFilter = category;
+            filterJobs();
+            document.getElementById('oferty').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setFilterType(type) {
+            currentTypeFilter = type;
+            
+            // Reset button styles
+            ['all', 'stala', 'tymczasowa'].forEach(t => {
+                const btn = document.getElementById(`filter-${t}`);
+                if (btn) {
+                    btn.className = "px-4 py-2 rounded-xl text-sm font-semibold bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all";
+                }
+            });
+
+            // Active button style
+            const activeMap = { 'all': 'filter-all', 'Praca stała': 'filter-stala', 'Praca tymczasowa': 'filter-tymczasowa' };
+            const activeBtn = document.getElementById(activeMap[type]);
+            if (activeBtn) {
+                activeBtn.className = "px-4 py-2 rounded-xl text-sm font-bold bg-brand-navy text-white transition-all";
+            }
+
+            filterJobs();
+        }
+
+        function resetFilters() {
+            document.getElementById('keyword-input').value = '';
+            document.getElementById('location-input').value = '';
+            currentCategoryFilter = null;
+            currentTypeFilter = 'all';
+            setFilterType('all');
+            renderJobs(jobsData);
+        }
+
+        // Modal Controls
+        function openModal(title, company, location) {
+            document.getElementById('modal-job-title').textContent = title;
+            document.getElementById('modal-job-company').textContent = `${company} • ${location}`;
+            document.getElementById('apply-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('apply-modal').classList.add('hidden');
+        }
+
+        function handleApplySubmit(e) {
+            e.preventDefault();
+            alert('Twoja aplikacja została pomyślnie wysłana! Dziękujemy za przesłanie CV.');
+            closeModal();
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Initialize icons and render initial data
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderJobs(jobsData);
+        });
+    </script>
+</body>
+</html>
