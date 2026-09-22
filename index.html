@@ -726,6 +726,23 @@
         </div>
     </footer>
 
+    <!-- BACKGROUND MUSIC -->
+    <audio id="background-music" loop preload="auto">
+        <source src="mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+        Twoja przeglądarka nie obsługuje odtwarzania dźwięku.
+    </audio>
+
+    <button
+        type="button"
+        id="music-toggle"
+        aria-label="Włącz muzykę"
+        aria-pressed="false"
+        title="Włącz lub wyłącz muzykę"
+        class="fixed bottom-20 right-4 sm:right-6 z-40 w-12 h-12 rounded-full bg-slate-900/95 border border-slate-700 text-brand-400 shadow-xl flex items-center justify-center hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 transition-all"
+    >
+        <i data-lucide="volume-x" class="w-5 h-5"></i>
+    </button>
+
     <!-- COOKIE BANNER -->
     <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 z-50 p-3 sm:p-4 md:p-6 transition-all duration-500 transform translate-y-0" role="region" aria-labelledby="cookie-banner-title">
         <div class="max-w-7xl mx-auto glass-card rounded-2xl p-4 sm:p-6 border border-slate-700/80 shadow-2xl bg-dark-base/95 backdrop-blur-xl">
@@ -1176,6 +1193,9 @@
             // Uruchomienie domyślnego języka
             changeLanguage(currentLang);
 
+            // Próba automatycznego uruchomienia muzyki.
+            startBackgroundMusic();
+
             // Baner pojawia się przy każdym pełnym otwarciu lub odświeżeniu strony.
             showCookieBanner();
         });
@@ -1246,7 +1266,66 @@
             });
         });
 
-        // 6. EVENT LISTENEROWIE DLA BANERA COOKIES
+        // 6. MUZYKA W TLE
+        const backgroundMusic = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+        let autoplayBlocked = false;
+        let musicPausedByUser = false;
+
+        backgroundMusic.volume = 0.18;
+
+        function updateMusicButton(isPlaying) {
+            musicToggle.setAttribute('aria-pressed', String(isPlaying));
+            musicToggle.setAttribute('aria-label', isPlaying ? 'Wyłącz muzykę' : 'Włącz muzykę');
+            musicToggle.title = isPlaying ? 'Wyłącz muzykę' : 'Włącz muzykę';
+            musicToggle.innerHTML = `<i data-lucide="${isPlaying ? 'volume-2' : 'volume-x'}" class="w-5 h-5"></i>`;
+
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }
+
+        async function startBackgroundMusic() {
+            if (musicPausedByUser) return false;
+
+            try {
+                await backgroundMusic.play();
+                autoplayBlocked = false;
+                updateMusicButton(true);
+                return true;
+            } catch (error) {
+                autoplayBlocked = true;
+                updateMusicButton(false);
+                return false;
+            }
+        }
+
+        async function unlockMusicAfterInteraction(event) {
+            if (!autoplayBlocked || event.target.closest('#music-toggle')) return;
+
+            if (await startBackgroundMusic()) {
+                document.removeEventListener('pointerdown', unlockMusicAfterInteraction);
+                document.removeEventListener('keydown', unlockMusicAfterInteraction);
+            }
+        }
+
+        musicToggle.addEventListener('click', async () => {
+            if (backgroundMusic.paused) {
+                musicPausedByUser = false;
+                await startBackgroundMusic();
+            } else {
+                musicPausedByUser = true;
+                backgroundMusic.pause();
+                updateMusicButton(false);
+            }
+        });
+
+        backgroundMusic.addEventListener('play', () => updateMusicButton(true));
+        backgroundMusic.addEventListener('pause', () => updateMusicButton(false));
+        document.addEventListener('pointerdown', unlockMusicAfterInteraction);
+        document.addEventListener('keydown', unlockMusicAfterInteraction);
+
+        // 7. EVENT LISTENEROWIE DLA BANERA COOKIES
         const cookieBanner = document.getElementById('cookie-banner');
 
         function applyCookieConsent(consent) {
