@@ -1300,6 +1300,36 @@
             }
         }
 
+        // Wersja wywoływana bezpośrednio przez kliknięcie użytkownika.
+        // Brak await przed play() zachowuje wymagany przez przeglądarki mobilne gest użytkownika.
+        function startMusicFromUserGesture() {
+            musicPausedByUser = false;
+
+            let playPromise;
+            try {
+                playPromise = backgroundMusic.play();
+            } catch (error) {
+                autoplayBlocked = true;
+                updateMusicButton(false);
+                return;
+            }
+
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise
+                    .then(() => {
+                        autoplayBlocked = false;
+                        updateMusicButton(true);
+                    })
+                    .catch(() => {
+                        autoplayBlocked = true;
+                        updateMusicButton(false);
+                    });
+            } else {
+                autoplayBlocked = false;
+                updateMusicButton(true);
+            }
+        }
+
         async function unlockMusicAfterInteraction(event) {
             if (!autoplayBlocked || event.target.closest('#music-toggle')) return;
 
@@ -1309,10 +1339,9 @@
             }
         }
 
-        musicToggle.addEventListener('click', async () => {
+        musicToggle.addEventListener('click', () => {
             if (backgroundMusic.paused) {
-                musicPausedByUser = false;
-                await startBackgroundMusic();
+                startMusicFromUserGesture();
             } else {
                 musicPausedByUser = true;
                 backgroundMusic.pause();
@@ -1349,10 +1378,12 @@
         }
 
         document.getElementById('cookie-accept-btn').addEventListener('click', () => {
+            startMusicFromUserGesture();
             applyCurrentViewConsent('all');
         });
 
         document.getElementById('cookie-reject-btn').addEventListener('click', () => {
+            startMusicFromUserGesture();
             applyCurrentViewConsent('essential');
         });
 
