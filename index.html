@@ -806,14 +806,88 @@
             <!-- Bottom Copyright -->
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
                 <p>© 2026 REM (Relocation Education Manpower). Wszelkie prawa zastrzeżone.</p>
-                <div class="flex gap-6">
+                <div class="flex flex-wrap gap-6">
                     <a href="#" class="hover:text-slate-400">Polityka Prywatności</a>
-                    <a href="#" class="hover:text-slate-400">RODO / GDPR</a>
-                    <a href="#" class="hover:text-slate-400">Bezpieczeństwo Danych</a>
+                    <a href="#" class="hover:text-slate-400">KLAUZULA RODO / GDPR</a>
+                    <button id="open-cookie-settings" class="hover:text-brand-400 underline transition-colors cursor-pointer">Ustawienia Cookies</button>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- COOKIE BANNER & RODO / GDPR COMPLIANCE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 transition-all duration-500 transform translate-y-0">
+        <div class="max-w-7xl mx-auto glass-card rounded-2xl p-6 border border-slate-700/80 shadow-2xl bg-dark-base/95 backdrop-blur-xl">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                
+                <!-- Text Content -->
+                <div class="space-y-2 max-w-3xl">
+                    <div class="flex items-center gap-2 text-xs font-bold text-brand-400 uppercase tracking-wider">
+                        <i data-lucide="cookie" class="w-4 h-4"></i>
+                        <span>Prywatność i Pliki Cookie (RODO / GDPR)</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Nasza strona wykorzystuje pliki cookie w celu zapewnienia prawidłowego funkcjonowania serwisu, analizy ruchu oraz dopasowania treści. Administratorem Twoich danych osobowych jest REM Platform. Możesz dostosować swoje preferencje lub zaakceptować wszystkie zgody.
+                    </p>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto shrink-0">
+                    <button id="cookie-settings-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-300 font-bold text-xs uppercase tracking-wider transition-all">
+                        Dostosuj
+                    </button>
+                    <button id="cookie-reject-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-300 font-bold text-xs uppercase tracking-wider transition-all">
+                        Niezbędne
+                    </button>
+                    <button id="cookie-accept-btn" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/30 transition-all">
+                        Akceptuję wszystkie
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Extended Cookie Settings Panel (Hidden by default) -->
+            <div id="cookie-settings-panel" class="hidden mt-6 pt-6 border-t border-slate-800 space-y-4">
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Zarządzaj preferencjami prywatności</h4>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- Essential -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white">Niezbędne (Wymagane)</span>
+                            <input type="checkbox" checked disabled class="w-4 h-4 accent-brand-500 cursor-not-allowed">
+                        </div>
+                        <p class="text-[11px] text-slate-400">Służą do prawidłowego funkcjonowania witryny oraz zapamiętywania sesji.</p>
+                    </div>
+
+                    <!-- Analytical -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white">Analityczne</span>
+                            <input type="checkbox" id="cookie-analytics" class="w-4 h-4 accent-brand-500 rounded cursor-pointer">
+                        </div>
+                        <p class="text-[11px] text-slate-400">Pomagają nam zrozumieć, w jaki sposób użytkownicy korzystają ze strony.</p>
+                    </div>
+
+                    <!-- Marketing -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-white">Marketingowe</span>
+                            <input type="checkbox" id="cookie-marketing" class="w-4 h-4 accent-brand-500 rounded cursor-pointer">
+                        </div>
+                        <p class="text-[11px] text-slate-400">Umożliwiają dostosowanie treści reklamowych i przekazów do Twoich potrzeb.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-2">
+                    <button id="cookie-save-settings-btn" class="px-6 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider transition-all">
+                        Zapisz wybrane
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
@@ -826,6 +900,68 @@
 
         menuToggle.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // RODO / Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookie-banner');
+        const cookieAcceptBtn = document.getElementById('cookie-accept-btn');
+        const cookieRejectBtn = document.getElementById('cookie-reject-btn');
+        const cookieSettingsBtn = document.getElementById('cookie-settings-btn');
+        const cookieSettingsPanel = document.getElementById('cookie-settings-panel');
+        const cookieSaveSettingsBtn = document.getElementById('cookie-save-settings-btn');
+        const openCookieSettingsLink = document.getElementById('open-cookie-settings');
+
+        const COOKIE_CONSENT_KEY = 'rem_cookie_consent_v1';
+
+        function hideCookieBanner() {
+            cookieBanner.classList.add('translate-y-full', 'opacity-0');
+            setTimeout(() => {
+                cookieBanner.classList.add('hidden');
+            }, 500);
+        }
+
+        function showCookieBanner() {
+            cookieBanner.classList.remove('hidden', 'translate-y-full', 'opacity-0');
+        }
+
+        function saveConsent(consentData) {
+            localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consentData));
+            hideCookieBanner();
+        }
+
+        // Check stored consent
+        window.addEventListener('DOMContentLoaded', () => {
+            const storedConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
+            if (!storedConsent) {
+                showCookieBanner();
+            } else {
+                cookieBanner.classList.add('hidden', 'translate-y-full');
+            }
+        });
+
+        // Event Listeners for Cookies
+        cookieAcceptBtn.addEventListener('click', () => {
+            saveConsent({ essential: true, analytics: true, marketing: true, timestamp: new Date().toISOString() });
+        });
+
+        cookieRejectBtn.addEventListener('click', () => {
+            saveConsent({ essential: true, analytics: false, marketing: false, timestamp: new Date().toISOString() });
+        });
+
+        cookieSettingsBtn.addEventListener('click', () => {
+            cookieSettingsPanel.classList.toggle('hidden');
+        });
+
+        cookieSaveSettingsBtn.addEventListener('click', () => {
+            const analytics = document.getElementById('cookie-analytics').checked;
+            const marketing = document.getElementById('cookie-marketing').checked;
+            saveConsent({ essential: true, analytics, marketing, timestamp: new Date().toISOString() });
+        });
+
+        openCookieSettingsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showCookieBanner();
+            cookieSettingsPanel.classList.remove('hidden');
         });
     </script>
 </body>
